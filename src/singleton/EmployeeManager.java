@@ -4,75 +4,54 @@
  * Course: CST8288 - section#
  * Term: Fall 2024
  * Assignment: Lab 1
- * Date: [Insert Date]
- * Purpose: This class follows the Singleton design pattern to manage all employees
- *          in the system. It ensures that only one instance of EmployeeManager is created.
+ * Date: 03-10-2024
+ * Purpose: This class implements the Singleton pattern to ensure that there is only one instance
+ * of EmployeeManager, responsible for managing employees.
  */
 
 package singleton;
 
+import model.Employee;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Employee;
-
 public class EmployeeManager {
-    private static EmployeeManager instance; // The single instance of EmployeeManager
-    private List<Employee> employees; // List to store employee records
+    // The single instance of EmployeeManager (Singleton)
+    private static EmployeeManager instance;
+    private List<Employee> employees;
 
-    // Private constructor to prevent instantiation from outside
+    // Private constructor to restrict instantiation from other classes
     private EmployeeManager() {
         employees = new ArrayList<>();
     }
 
-    /**
-     * Static method to return the single instance of EmployeeManager.
-     */
+    // Public method to provide access to the singleton instance
     public static EmployeeManager getInstance() {
         if (instance == null) {
-            instance = new EmployeeManager(); // Create a new instance if it doesn't exist
+            instance = new EmployeeManager();
         }
         return instance;
     }
 
-    /**
-     * Adds an employee to the list.
-     */
+    // Method to add an employee to the list
     public void addEmployee(Employee employee) {
-        employees.add(employee); // Add the employee to the list
+        employees.add(employee);
     }
 
-    /**
-     * Removes an employee from the list by ID.
-     */
-    public void removeEmployee(int id) {
-        employees.removeIf(emp -> emp.getId() == id); // Remove employee by ID
-    }
-
-    /**
-     * Retrieves an employee by their ID.
-     */
-    public Employee getEmployee(int id) {
-        for (Employee employee : employees) {
-            if (employee.getId() == id) {
-                return employee; // Return the employee if ID matches
-            }
-        }
-        return null; // Return null if not found
-    }
-
-    /**
-     * Displays all employees managed by EmployeeManager.
-     */
+    // Method to display all employees
     public void displayAllEmployees() {
-        if (employees.isEmpty()) {
-            System.out.println("No employees to display.");
-        } else {
-            for (Employee employee : employees) {
-                System.out.println("ID: " + employee.getId() + ", Name: " + employee.getName() +
-                                   ", Department: " + employee.getDepartment() + ", Role: " + employee.getRole() +
-                                   ", Working Hours: " + employee.getWorkingHoursPerWeek() + ", Salary: " + employee.getSalary());
-            }
+        for (Employee employee : employees) {
+            System.out.println("Employee Name: " + employee.getName());
+            System.out.println("Department: " + employee.getDepartment());
+            System.out.println("Role: " + employee.getRole());
+            System.out.println("Working Hours Per Week: " + employee.getWorkingHoursPerWeek());
+            System.out.println("Salary: " + employee.getSalary());
+            System.out.println();
         }
+    }
+
+    // Getter for the employees list (this was missing)
+    public List<Employee> getEmployees() {
+        return employees;
     }
 }
